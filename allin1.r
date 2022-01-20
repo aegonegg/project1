@@ -7,6 +7,7 @@ library(TTR)
 
 library(rugarch)
 library(forecast)
+library(tseries)
 library(ggplot2)
 
 tar_and_ind=c('VOO','AAPL', 'AMZN', 'BRK-B', 'FB', 'GOOG', 'GOOGL', 'JNJ', 'JPM', 'MSFT', 'NVDA', 'TSLA')
@@ -21,7 +22,17 @@ re1=na.omit(re1)
 head(re1)
 head(rea1)
 
+
+r <- arma(re1, order = c(1, 1), lag = NULL, coef = NULL,
+     include.intercept = TRUE, series = NULL)
+summary(r)
+par(mar=c(1,1,1,1))
+plot(r)
+forecast(r)
+
 symbols=c('AAPL', 'AMZN', 'BRK-B', 'FB','GOOG', 'GOOGL', 'JNJ', 'JPM', 'MSFT', 'NVDA', 'TSLA')
+
+
 re=re1
 rea=rea1
 #calculate the returns of multiple indexes
@@ -37,5 +48,7 @@ for(i in 1:length(symbols)) {
 re=na.omit(re)
 head(re)
 head(rea)
+
+
 
 
